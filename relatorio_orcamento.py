@@ -84,16 +84,17 @@ def enviar_email(destinatario, caminho_pdf):
         print(f"Erro ao enviar e-mail: {e}")
 
 # Execução do script
-print("Iniciando processamento da planilha...")
-df = processor_planilha()
+if __name__ == "__main__":
+    print("Iniciando processamento da planilha...")
+    df_processado = processor_planilha()
 
-if df is not None:
-    print("DataFrame gerado com sucesso!")
-    caminho_pdf = gerar_pdf(df)
-    print(f"PDF gerado e salvo em: {os.path.abspath(caminho_pdf)}")
+    if df_processado is not None:
+        print("DataFrame gerado com sucesso!")
+        caminho_pdf = gerar_pdf(df_processado)
+        print(f"PDF gerado e salvo em: {os.path.abspath(caminho_pdf)}")
 
-    # Enviar e-mail após gerar o PDF
-    destinatario = "italosiqueiradacosta@gmail.com"  # Substituir pelo e-mail real do destinatário
-    enviar_email(destinatario, caminho_pdf)
-else:
-    print("Nenhuma planilha encontrada ou erro ao processar os dados.")
+        # Enviar e-mail após gerar o PDF
+        email_destinatario = input("Digite o e-mail para envio do relatório: ")
+        enviar_email(email_destinatario, caminho_pdf)
+    else:
+        print("Nenhuma planilha encontrada ou erro ao processar os dados.")
