@@ -62,6 +62,27 @@ def gerar_pdf(df):
     print(f"Relatório salvo em: {os.path.abspath(caminho_pdf)}")
     return caminho_pdf
 
+def enviar_email(destinatario, caminho_pdf):
+    msg = EmailMessage()
+    msg["Subject"] = "Relatório de Orçamento Mensal"
+    msg["From"] = EMAIL_REMETENTE
+    msg["To"] = destinatario
+    msg.set_content("Segue em anexo o relatório de orçamento mensal.")
+
+    # Anexar o PDF
+    with open(caminho_pdf, "rb") as f:
+        tipo, _ = mimetypes.guess_type(caminho_pdf)
+        msg.add_attachment(f.read(), maintype="application", subtype="pdf", filename=NOME_ARQUIVO_SAIDA)
+
+    # Enviar e-mail
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(EMAIL_REMETENTE, SENHA_EMAIL)
+            server.send_message(msg)
+        print(f"E-mail enviado para {destinatario}!")
+    except Exception as e:
+        print(f"Erro ao enviar e-mail: {e}")
+
 # Execução do script
 print("Iniciando processamento da planilha...")
 df = processor_planilha()
@@ -70,5 +91,9 @@ if df is not None:
     print("DataFrame gerado com sucesso!")
     caminho_pdf = gerar_pdf(df)
     print(f"PDF gerado e salvo em: {os.path.abspath(caminho_pdf)}")
+
+    # Enviar e-mail após gerar o PDF
+    destinatario = "italosiqueiradacosta@gmail.com"  # Substituir pelo e-mail real do destinatário
+    enviar_email(destinatario, caminho_pdf)
 else:
     print("Nenhuma planilha encontrada ou erro ao processar os dados.")
