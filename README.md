@@ -16,4 +16,3 @@ Este é um projeto de estudo que o usuário importa uma arquivo com extensão .x
 ## Sobre o Desenvolvedor
 - **Nome**: Italo Costa - Desenvolvedor React Júnior
 - [Meu LinkedIn](https://www.linkedin.com/in/italo-costa-dev/)
-- [Deploy do Projeto](https://planit-khaki.vercel.app/)
