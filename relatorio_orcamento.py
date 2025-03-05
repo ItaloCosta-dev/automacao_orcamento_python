@@ -1,3 +1,4 @@
+# IMPORTAÇÕES
 import os
 import pandas as pd
 from reportlab.lib.pagesizes import A4
@@ -7,16 +8,17 @@ import mimetypes
 from email.message import EmailMessage
 from dotenv import load_dotenv  
 
-# Carregar as variáveis do arquivo .env
+# CARREGA AS VARIÁVEIS DE AMBIENTE
 load_dotenv()
 
-# Configurações
+# CONFIGURAÇÕES
 PASTA_PLANILHA = "planilhas"
-PASTA_RELATORIO = "relatório"
+PASTA_RELATORIO = "relatorio"
 NOME_ARQUIVO_SAIDA = "relatorio_orcamento.pdf"
 EMAIL_REMETENTE = os.getenv("EMAIL_REMETENTE")
 SENHA_EMAIL = os.getenv("SENHA_EMAIL")
 
+# FUNÇÃO PARA PROCESSAR PLANILHA
 def processor_planilha():
     arquivos = [f for f in os.listdir(PASTA_PLANILHA) if f.endswith(".xlsx") or f.endswith(".csv")]
     if not arquivos:
@@ -31,6 +33,7 @@ def processor_planilha():
     df = df.sort_values(by="Valor", ascending=False)
     return df
 
+# FUNÇÃO PARA GERAR O PDF
 def gerar_pdf(df):
     if not os.path.exists(PASTA_RELATORIO):
         os.makedirs(PASTA_RELATORIO)
@@ -49,6 +52,7 @@ def gerar_pdf(df):
     print(f"Relatório salvo em: {os.path.abspath(caminho_pdf)}")
     return caminho_pdf
 
+# FUNÇÃO PARA ENVIAR EMAIL
 def enviar_email(destinatario, caminho_pdf):
     msg = EmailMessage()
     msg["Subject"] = "Relatório de Orçamento Mensal"
@@ -58,7 +62,9 @@ def enviar_email(destinatario, caminho_pdf):
     with open(caminho_pdf, "rb") as f:
         tipo, _ = mimetypes.guess_type(caminho_pdf)
         msg.add_attachment(f.read(), maintype="application", subtype="pdf", filename=NOME_ARQUIVO_SAIDA)
+    
     try:
+        print("Iniciando envio do e-mail...")
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(EMAIL_REMETENTE, SENHA_EMAIL)
             server.send_message(msg)
@@ -72,8 +78,10 @@ if __name__ == "__main__":
     if df_processado is not None:
         print("DataFrame gerado com sucesso!")
         caminho_pdf = gerar_pdf(df_processado)
-        print(f"PDF gerado e salvo em: {os.path.abspath(caminho_pdf)}")
-        email_destinatario = input("Digite o e-mail para envio do relatório: ")
+        print(f"PDF gerado e salvo em: {os.path.abspath(caminho_pdf)}")       
+        print("Aguardando digitação do e-mail...")
+        email_destinatario = input("Digite o e-mail para envio do relatório: ")      
+        print(f"E-mail digitado: {email_destinatario}")
         enviar_email(email_destinatario, caminho_pdf)
     else:
         print("Nenhuma planilha encontrada ou erro ao processar os dados.")
