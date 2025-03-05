@@ -3,6 +3,11 @@
 ## Como Funciona
 Este é um projeto de estudo que o usuário importa uma arquivo com extensão .xlsx e ao executar o script o arquivo é transformado em pdf. Como uma feature do sistema, o usuário poderá enviar direto para o seu email.
 
+## Como Executar
+- Faça o clone do projeto para a sua máquina;
+- Instale as bibliotecas necessárias;
+- No terminal rode o comando: python relatorio_orcamento.py
+
 ## Bibliotecas Utilizadas
 1. **os** – Fornece funcionalidades para interagir com o sistema operacional, como manipulação de arquivos e diretórios.  
 2. **pandas (pd)** – Biblioteca para manipulação e análise de dados, útil para lidar com tabelas e planilhas.  
@@ -14,5 +19,5 @@ Este é um projeto de estudo que o usuário importa uma arquivo com extensão .x
 8. **dotenv.load_dotenv** – Carrega variáveis de ambiente de um arquivo `.env`, útil para armazenar credenciais de forma segura.  
 
 ## Sobre o Desenvolvedor
-- **Nome**: Italo Costa - Desenvolvedor React Júnior
+- **Nome**: Italo Costa - Desenvolvedor Front End
 - [Meu LinkedIn](https://www.linkedin.com/in/italo-costa-dev/)
