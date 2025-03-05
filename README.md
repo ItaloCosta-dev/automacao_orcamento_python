@@ -1,7 +1,7 @@
 # Projeto - Automação em Python [Excel para PDF]
 
 ## Como Funciona
-Este é um projeto de estudo que o usuário importa uma arquivo com extensão .xlsx e ao executar o script o arquivo é transformado em pdf. Como uma featura do sistema, o usuário poderá enviar direto para o seu email.
+Este é um projeto de estudo que o usuário importa uma arquivo com extensão .xlsx e ao executar o script o arquivo é transformado em pdf. Como uma feature do sistema, o usuário poderá enviar direto para o seu email.
 
 ## Bibliotecas Utilizadas
 1. **os** – Fornece funcionalidades para interagir com o sistema operacional, como manipulação de arquivos e diretórios.  
